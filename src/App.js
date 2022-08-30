@@ -17,8 +17,27 @@ const useField = (type) => {
 
 const useCountry = (name) => {
   const [country, setCountry] = useState(null)
+ 
 
-  useEffect(() => {})
+  useEffect(() => {
+    axios.get("https://restcountries.com/v3.1/all").then((response)=>{
+    
+      const specificCountry = response.data.filter(country => country.name.common.toLowerCase().includes(name))
+      console.log(specificCountry)
+      if(specificCountry.length===1){
+
+        setCountry(specificCountry[0])
+        console.log(country)
+      }
+  
+     return country
+      
+    })
+  },[country,name])
+
+
+
+  
 
   return country
 }
@@ -45,6 +64,7 @@ const App = () => {
 
   const fetch = (e) => {
     e.preventDefault()
+    console.log("clicked fetch")
     setName(nameInput.value)
   }
 
