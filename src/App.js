@@ -21,21 +21,22 @@ const useCountry = (name) => {
   const [country, setCountry] = useState(null);
 
   useEffect(() => {
-    axios
-      .get(`https://restcountries.com/v3.1/name/${name}?fullText=true`)
-      .then((response) => {
-        setCountry(...response.data);
+    if (name)
+      axios
+        .get(`https://restcountries.com/v3.1/name/${name}?fullText=true`)
+        .then((response) => {
+          setCountry(...response.data);
 
-        // const specificCountry = response.data.filter(country => country.name.common.toLowerCase().includes(name))
-        // console.log(specificCountry)
-        // if(specificCountry.length===1){
+          // const specificCountry = response.data.filter(country => country.name.common.toLowerCase().includes(name))
+          // console.log(specificCountry)
+          // if(specificCountry.length===1){
 
-        //   setCountry(specificCountry[0])
-        //   console.log(country)
-        // }
-      })
-      // eslint-disable-next-line
-      .catch((error) => setCountry(null));
+          //   setCountry(specificCountry[0])
+          //   console.log(country)
+          // }
+        })
+        // eslint-disable-next-line
+        .catch((error) => setCountry(null));
   }, [country, name]);
 
   return country;
